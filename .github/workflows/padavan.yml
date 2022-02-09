@@ -43,12 +43,25 @@ jobs:
         sudo git clone --depth=1 https://github.com/hanwckf/padavan-4.4.git /opt/padavan-4.4
         cd /opt/padavan-4.4/toolchain-mipsel
         sudo sh dl_toolchain.sh
+        sudo git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
+        cd /opt/rt-n56u/toolchain-mipsel
+        sudo sh dl_toolchain.sh
         sudo mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: K2P_nano
+        TNAME: PSG1218
+        TNAME4_4: K2P_nano
       run: |
         cd /opt/padavan-4.4/trunk
+        if [ ! -f configs/templates/$TNAME4_4.config ] ; then
+        echo "configs/templates/$TNAME4_4.config not found "
+        exit 1
+        fi
+        cp -f configs/templates/$TNAME4_4.config .config
+        sudo ./clear_tree
+        sudo ./build_firmware_modify $TNAME4_4 0
+        sudo mv -f images/*.trx /opt/images/
+        cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
         echo "configs/templates/$TNAME.config not found "
         exit 1
