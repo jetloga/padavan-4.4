@@ -5,7 +5,7 @@ on:
     inputs:
       build_config:
         default: 'PSG1218_nano'
-      build_config_4.4:
+      build_config_4_4:
         default: 'K2P_nano'  
 
 jobs:
@@ -37,7 +37,7 @@ jobs:
     - name: Build Firmware
       env:
         TNAME: ${{ github.event.inputs.build_config }}
-        TNAME4_4: ${{ github.event.inputs.build_config_4.4 }}
+        TNAME4_4: ${{ github.event.inputs.build_config_4_4 }}
       run: |
         cd /opt/padavan-4.4/trunk
         if [ ! -f configs/templates/$TNAME4_4.config ] ; then
