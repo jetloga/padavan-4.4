@@ -49,7 +49,7 @@ jobs:
         sudo mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: PSG1218
+        TNAME: PSG1218_nano
         TNAME4_4: K2P_nano
       run: |
         cd /opt/padavan-4.4/trunk
